@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hudson Valley Academy Weather Stations</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  body { margin: 0; font-family: Georgia, serif; background: #f5f0e8; color: #2c2416; }
+  h1 { font-size: 26px; font-weight: normal; margin: 22px 28px 2px; }
+  p.sub { margin: 0 28px 12px; color: #6b5e45; font-size: 15px; }
+
+  .hv-mapwrap { padding: 6px 32px 14px; }
+  #hvMap { height: 440px; border: 1px solid #c8bfa8; border-radius: 6px; background: #f5f0e8; }
+  .hv-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.82rem; color: #4a3c28; margin-top: 8px; align-items: center; }
+  .hv-legend label { cursor: pointer; }
+  .hv-legend .note { color: #6b5e45; flex-basis: 100%; }
+  .hv-legend .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; border: 1px solid #fff; }
+  .hv-legend .dot.acad { background: #8a3b12; } .hv-legend .dot.meso { background: #2e5e9e; width: 8px; height: 8px; }
+  .hv-county-label { font: italic 12px Georgia, serif; color: #8a7a5c; white-space: nowrap; transform: translate(-50%, -50%); }
+  .hv-acad-label { font: 12px Georgia, serif; color: #2c2416; white-space: nowrap; text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff; }
+  .hv-acad-label span { display: inline-block; }
+  .hv-acad-label.left span { transform: translateX(-100%); }
+
+  body .hv-mapwrap { padding: 0 28px 20px; width: 900px; }
+  body #hvMap { height: 1060px; }
+</style></head><body>
+<h1>Hudson Valley academies reporting weather to the NYS Regents, 1827&ndash;1860</h1>
+<p class="sub">16 academies in 8 of the region&rsquo;s ten counties &bull; 6,051 surviving monthly report pages &bull; with today&rsquo;s NYS Mesonet stations</p>
+<div class="hv-mapwrap">
+  <div id="hvMap" data-static></div>
+  <div class="hv-legend">
+    <span><i class="dot acad"></i>Academy (size = surviving pages)</span>
+    <label><input type="checkbox" data-layer="mesonet" checked> <i class="dot meso"></i>NYS Mesonet station</label>
+    <label><input type="checkbox" data-layer="radius"> 30 km radius</label>
+    <span class="note">Shaded: the ten counties of The Understory&rsquo;s Hudson Valley region. Academy positions are approximate (town centres).</span>
+  </div>
+</div>
+<script>window.HV_ACADEMIES = [{"name": "Albany Academy", "short": "Albany", "label": true, "side": "right", "town": "Albany", "county": "Albany", "lat": 42.6537, "lon": -73.7554, "pages": 856, "first": 1827, "last": 1860}, {"name": "Amenia Academy", "short": "Amenia", "label": true, "side": "right", "town": "Amenia", "county": "Dutchess", "lat": 41.8453, "lon": -73.5576, "pages": 52, "first": 1849, "last": 1849}, {"name": "Dutchess County Academy", "short": "Poughkeepsie", "label": true, "side": "right", "town": "Poughkeepsie", "county": "Dutchess", "lat": 41.7037, "lon": -73.929, "pages": 456, "first": 1828, "last": 1849}, {"name": "Farmers' Hall Academy", "short": "Goshen", "label": true, "side": "left", "town": "Goshen", "county": "Orange", "lat": 41.402, "lon": -74.3243, "pages": 215, "first": 1833, "last": 1849}, {"name": "Greenville Academy", "short": "Greenville", "label": true, "side": "left", "town": "Greenville", "county": "Greene", "lat": 42.414, "lon": -74.0226, "pages": 61, "first": 1827, "last": 1833}, {"name": "Hudson Academy", "short": "Hudson", "label": true, "side": "right", "town": "Hudson", "county": "Columbia", "lat": 42.2526, "lon": -73.7909, "pages": 499, "first": 1827, "last": 1854}, {"name": "Kinderhook Academy", "short": "Kinderhook", "label": true, "side": "right", "town": "Kinderhook", "county": "Columbia", "lat": 42.3953, "lon": -73.6979, "pages": 518, "first": 1830, "last": 1847}, {"name": "Kingston Academy", "short": "Kingston", "label": true, "side": "left", "town": "Kingston", "county": "Ulster", "lat": 41.931, "lon": -74.018, "pages": 367, "first": 1828, "last": 1849}, {"name": "Lansingburgh Academy", "short": "Lansingburgh", "label": true, "side": "right", "town": "Lansingburgh", "county": "Rensselaer", "lat": 42.7837, "lon": -73.674, "pages": 494, "first": 1827, "last": 1850}, {"name": "Montgomery Academy", "short": "Montgomery", "label": true, "side": "left", "town": "Montgomery", "county": "Orange", "lat": 41.5276, "lon": -74.2365, "pages": 425, "first": 1827, "last": 1849}, {"name": "Mount Pleasant Academy", "short": "Ossining", "label": true, "side": "left", "town": "Ossining (Sing Sing)", "county": "Westchester", "lat": 41.1626, "lon": -73.8615, "pages": 539, "first": 1827, "last": 1849}, {"name": "Newburgh Academy", "short": "Newburgh", "label": true, "side": "right", "town": "Newburgh", "county": "Orange", "lat": 41.5034, "lon": -74.0104, "pages": 478, "first": 1827, "last": 1860}, {"name": "North Salem Academy", "short": "North Salem", "label": true, "side": "right", "town": "North Salem", "county": "Westchester", "lat": 41.3335, "lon": -73.597, "pages": 796, "first": 1829, "last": 1860}, {"name": "Red Hook Academy", "short": "Red Hook", "label": true, "side": "right", "town": "Red Hook", "county": "Dutchess", "lat": 41.995, "lon": -73.8755, "pages": 223, "first": 1829, "last": 1842}, {"name": "Spencertown Academy", "short": "Spencertown", "label": true, "side": "right", "town": "Spencertown", "county": "Columbia", "lat": 42.329, "lon": -73.5435, "pages": 26, "first": 1854, "last": 1854}, {"name": "White Plains Academy", "short": "White Plains", "label": true, "side": "right", "town": "White Plains", "county": "Westchester", "lat": 41.034, "lon": -73.7629, "pages": 46, "first": 1850, "last": 1860}];</script>
+<script src="map-data/hv-map.js"></script>
+</body></html>
