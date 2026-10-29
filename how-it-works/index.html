@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the AI Transcription Works</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, serif; background: #f5f0e8; color: #2c2416; line-height: 1.55; }
+  header { background: #2c2416; color: #f5f0e8; padding: 24px 32px; }
+  header h1 { font-size: 1.5rem; font-weight: normal; letter-spacing: 0.03em; }
+  header p { margin-top: 6px; font-size: 0.9rem; opacity: 0.75; }
+  header a { color: #f5f0e8; }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 48px; }
+  figure img { width: 100%; height: auto; display: block; border: 1px solid #c8bfa8; border-radius: 6px; background: #f5f0e8; }
+  figcaption { font-size: 0.85rem; color: #6b5e45; margin-top: 6px; }
+  figcaption a { color: #3d3020; }
+  h2 { font-size: 1.15rem; font-weight: normal; margin: 28px 0 8px; border-bottom: 1px solid #c8bfa8; padding-bottom: 4px; }
+  p, li { font-size: 1rem; max-width: 760px; }
+  ul { padding-left: 1.2em; }
+  li + li { margin-top: 6px; }
+  .note { font-size: 0.9rem; color: #6b5e45; }
+  a { color: #3d3020; }
+</style>
+</head>
+<body>
+<header>
+  <h1>How the AI transcription works</h1>
+  <p>Hudson Valley academy weather records, 1827&ndash;1860 &bull; <a href="../">Browse the scanned pages</a></p>
+</header>
+<main>
+  <figure>
+    <img src="ai-transcription-pipeline.svg" alt="Five steps: each page is surveyed; two independent AI readers transcribe it; automatic checks compare the readers and the observer's own arithmetic; people review only the doubtful cells; the result is checked daily climate data.">
+    <figcaption>Download: <a href="ai-transcription-pipeline.svg">SVG</a> &bull; <a href="ai-transcription-pipeline.png">PNG</a></figcaption>
+  </figure>
+
+  <h2>Why this works for these records</h2>
+  <ul>
+    <li><b>Accuracy is measured, not assumed.</b> Every result is scored cell by cell against 263 months
+      of the Albany Academy record (1827&ndash;1849) that were transcribed and proofread by hand.</li>
+    <li><b>The observers check our work.</b> Each daily mean was computed and written by the observer.
+      When a transcribed reading doesn&rsquo;t fit the observer&rsquo;s own arithmetic, the AI looks again at
+      just those cells. In the hand-proofed record the arithmetic balances on 99% of days, so a mismatch
+      almost always means a misread digit.</li>
+    <li><b>Two readers are better than one.</b> Two different AI systems read each page independently.
+      Where they agree (about 96% of cells) they are right about 98% of the time; where they disagree,
+      a person decides.</li>
+    <li><b>People spend their time where it counts.</b> About 3&ndash;4% of cells go to a reviewer, who
+      sees the handwriting beside each doubtful value. Repeated confusions, like this hand&rsquo;s 8s
+      that look like 0s, can be corrected in batches.</li>
+    <li><b>It is affordable at scale.</b> The AI costs are a few cents per page, so the full record of
+      daily sheets can be transcribed, not just a sample.</li>
+  </ul>
+
+  <h2>Current results</h2>
+  <p>On 42 held-back Albany months, a single AI reader got about 95% of cells right. Re-reading the
+    cells where the observer&rsquo;s arithmetic fails raised temperature accuracy to about 97&ndash;98% on a
+    separate set of 20 months; confirming that figure on the held-back months is the next step.
+    Automatic corrections from the arithmetic matched the hand-proofed record in 157 of 158 cases.</p>
+  <p class="note">The output is the transcription of what the observers wrote. Questions about how
+    historical instruments and sites compare with modern ones are handled separately, in the climate
+    analysis.</p>
+</main>
+</body>
+</html>
